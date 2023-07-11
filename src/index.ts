@@ -40,13 +40,16 @@ client.on("unload-script", (ev) => {
   }
 });
 
-function getAllTimeLB(gameCode: string) {
+function getAllTimeLB(gameCode: string, numberOfPositions: number) {
   let request = network.getSync(
     `https://api.playhive.com/v0/game/all/${gameCode}`
   );
   if (request.statusCode === 200) {
     const response: any = JSON.parse(request.body);
     for (const i in response) {
+      if (numberOfPositions < response[i].human_index) {
+        break;
+      }
       script.log(
         `§6#${response[i].human_index}§r | §b${response[i].username}§r | §a${response[i].victories} wins`
       );
