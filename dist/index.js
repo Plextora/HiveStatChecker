@@ -1,3 +1,4 @@
+// Credits: rosie for doing this idea before I ever could :(
 require("network");
 script.name = "Hive Stat Checker";
 script.description = "Check Hive statistics in-game";

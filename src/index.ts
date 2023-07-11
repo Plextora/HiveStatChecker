@@ -1,3 +1,5 @@
+// Credits: rosie for doing this idea before I ever could :(
+
 const network = require("network");
 
 script.name = "Hive Stat Checker";
@@ -38,7 +40,7 @@ client.on("unload-script", (ev) => {
   }
 });
 
-function getWarsLB(gameCode: string) {
+function getAllTimeLB(gameCode: string) {
   let request = network.getSync(
     `https://api.playhive.com/v0/game/all/${gameCode}`
   );
