@@ -37,3 +37,17 @@ client.on("unload-script", (ev) => {
     client.getModuleManager().deregisterModule(hiveStatCheckerModule);
   }
 });
+
+function getWarsLB(gameCode: string) {
+  let request = network.getSync(
+    `https://api.playhive.com/v0/game/all/${gameCode}`
+  );
+  if (request.statusCode === 200) {
+    const response: any = JSON.parse(request.body);
+    for (const i in response) {
+      script.log(
+        `§6#${response[i].human_index}§r | §b${response[i].username}§r | §a${response[i].victories} wins`
+      );
+    }
+  }
+}
