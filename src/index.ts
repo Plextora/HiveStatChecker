@@ -1,27 +1,11 @@
 // Credits: rosie for doing this idea before I ever could :(
 
-const network = require("network");
+import { cmdPrefix, cmds } from "./cmds/cmdHandler";
 
 script.name = "Hive Stat Checker";
 script.description = "Check Hive statistics in-game";
 script.version = "0.0.0";
 script.author = "Plextora";
-
-const hiveGamemodes: Map<string, string> = new Map<string, string>([
-  ["Treasure Wars", "wars"],
-  ["Deathrun", "dr"],
-  ["Hide and Seek", "hide"],
-  ["Survival Games", "sg"],
-  ["Murder Mystery", "murder"],
-  ["Skywars", "sky"],
-  ["Capture the Flag", "ctf"],
-  ["Block Drop", "drop"], // this is a gamemode?? never heard of it.
-  ["Ground Wars", "ground"],
-  ["Just Build", "build"],
-  ["Block Party", "party"],
-  ["The Bridge", "bridge"],
-  ["Gravity", "gravity"],
-]);
 
 client.showNotification(`Script ${script.name} has been loaded!`);
 
@@ -40,19 +24,17 @@ client.on("unload-script", (ev) => {
   }
 });
 
-function getAllTimeLB(gameCode: string, numberOfPositions: number) {
-  let request = network.getSync(
-    `https://api.playhive.com/v0/game/all/${gameCode}`
-  );
-  if (request.statusCode === 200) {
-    const response: any = JSON.parse(request.body);
-    for (const i in response) {
-      if (numberOfPositions < response[i].human_index) {
-        break;
+client.on("send-chat", (ev) => {
+  if (hiveStatCheckerModule.isEnabled()) {
+    if (ev.message.startsWith(cmdPrefix)) {
+      ev.cancel = true;
+      const args: string[] = ev.message.substring(1).split(" ").slice(1);
+      ev.message = ev.message.substring(1).split(" ")[0];
+      for (const [key, value] of cmds.entries()) {
+        if (ev.message === value) {
+          key(args);
+        }
       }
-      script.log(
-        `§6#${response[i].human_index}§r | §b${response[i].username}§r | §a${response[i].victories} wins`
-      );
     }
   }
-}
+});
