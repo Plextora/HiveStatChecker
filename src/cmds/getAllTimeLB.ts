@@ -1,4 +1,4 @@
-import gameModeToGameCode from "../gameModeToGameCode";
+import gameModeToGameCode from "../util/gameModeToGameCode";
 const network = require("network");
 
 export default function getAllTimeLB(args: string[]) {
