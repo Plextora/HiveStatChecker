@@ -17,11 +17,11 @@ function gameModeToGameCode(gameMode) {
     return hiveGamemodes.get(gameMode);
 }
 
-const network = require("network");
+const network$1 = require("network");
 function getAllTimeLB(args) {
     let gameMode = gameModeToGameCode(args[0]);
     let numberOfPositions = Number(args[1]);
-    let request = network.getSync(`https://api.playhive.com/v0/game/all/${gameMode}`);
+    let request = network$1.getSync(`https://api.playhive.com/v0/game/all/${gameMode}`);
     if (request.statusCode === 200) {
         const response = JSON.parse(request.body);
         for (const i in response) {
@@ -36,9 +36,41 @@ function getAllTimeLB(args) {
     }
 }
 
+function kdrCalc(kills, deaths) {
+    let KDR = kills / deaths;
+    return Math.round((KDR + Number.EPSILON) * 100) / 100;
+}
+
+const network = require("network");
+function getPlayerAllTimeStats(args) {
+    let gameMode = gameModeToGameCode(args[0]);
+    let player = args[1];
+    let request = network.getSync(`https://api.playhive.com/v0/game/all/${gameMode}/${player}`);
+    if (request.statusCode === 200) {
+        const response = JSON.parse(request.body);
+        script.log(`§l§6${player}`);
+        script.log(`§eGames played: ${response.played}`);
+        script.log(`§eWins: ${response.victories}`);
+        script.log(`§eWinrate: ${Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
+        script.log(`§eLossrate: ${100 -
+            Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
+        if (response.kills !== undefined) {
+            script.log(`§eKills: ${response.kills}`);
+        }
+        script.log(`§eDeaths: ${response.deaths}`);
+        if (response.kills !== undefined) {
+            script.log(`§eKDR: ${kdrCalc(Number(response.kills), Number(response.deaths))}`);
+        }
+    }
+    else if (request.statusCode === 404) {
+        script.log("§cFailed to obtain player's statistics.");
+    }
+}
+
 let cmdPrefix = "*";
 let cmds = new Map();
 cmds.set(getAllTimeLB, "get-all-time-lb");
+cmds.set(getPlayerAllTimeStats, "get-all-time-player-stats");
 
 // Credits: rosie for doing this idea before I ever could :(
 script.name = "Hive Stat Checker";
