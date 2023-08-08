@@ -28,11 +28,11 @@ function getAllTimeLB(args) {
             if (numberOfPositions < response[i].human_index) {
                 break;
             }
-            script.log(`§6#${response[i].human_index}§r | §b${response[i].username}§r | §a${response[i].victories} wins`);
+            script.log(`§l§6#${response[i].human_index}§r | §b${response[i].username}§r | §a${response[i].victories} wins`);
         }
     }
     else if (request.statusCode === 404) {
-        script.log("§cFailed to obtain leaderboard rankings.");
+        script.log("§l§cFailed to obtain leaderboard rankings.\nExample usage: *get-all-time-lb Skywars <numOfPositions>");
     }
 }
 
@@ -49,21 +49,21 @@ function getPlayerAllTimeStats(args) {
     if (request.statusCode === 200) {
         const response = JSON.parse(request.body);
         script.log(`§l§6${player}`);
-        script.log(`§eGames played: ${response.played}`);
-        script.log(`§eWins: ${response.victories}`);
-        script.log(`§eWinrate: ${Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
-        script.log(`§eLossrate: ${100 -
+        script.log(`§6Games played: §l§6${response.played}`);
+        script.log(`§6Wins: §l§6${response.victories}`);
+        script.log(`§6Winrate: §l§6${Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
+        script.log(`§6Lossrate: §l§6${100 -
             Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
         if (response.kills !== undefined) {
-            script.log(`§eKills: ${response.kills}`);
+            script.log(`§6Kills: §l§6${response.kills}`);
         }
-        script.log(`§eDeaths: ${response.deaths}`);
+        script.log(`§6Deaths: §l§6${response.deaths}`);
         if (response.kills !== undefined) {
-            script.log(`§eKDR: ${kdrCalc(Number(response.kills), Number(response.deaths))}`);
+            script.log(`§6KDR: §l§6${kdrCalc(Number(response.kills), Number(response.deaths))}`);
         }
     }
     else if (request.statusCode === 404) {
-        script.log("§cFailed to obtain player's statistics.");
+        script.log("§l§cFailed to obtain player's statistics.");
     }
 }
 

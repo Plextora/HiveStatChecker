@@ -16,10 +16,12 @@ export default function getAllTimeLB(args: string[]) {
         break;
       }
       script.log(
-        `§6#${response[i].human_index}§r | §b${response[i].username}§r | §a${response[i].victories} wins`
+        `§l§6#${response[i].human_index}§r | §b${response[i].username}§r | §a${response[i].victories} wins`
       );
     }
   } else if (request.statusCode === 404) {
-    script.log("§cFailed to obtain leaderboard rankings.");
+    script.log(
+      "§l§cFailed to obtain leaderboard rankings.\nExample usage: *get-all-time-lb Skywars <numOfPositions>"
+    );
   }
 }
