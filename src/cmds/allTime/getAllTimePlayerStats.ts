@@ -7,7 +7,8 @@ export default function getAllTimePlayerStats(args: string[]) {
   let player: string = args[1];
 
   let request = network.getSync(
-    `https://api.playhive.com/v0/game/all/${gameMode}/${player}`
+    `https://api.playhive.com/v0/game/all/${gameMode}/${player}`,
+    {}
   );
 
   if (request.statusCode === 200) {

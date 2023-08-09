@@ -6,7 +6,8 @@ export default function getAllTimeLB(args: string[]) {
   let numberOfPositions: number = Number(args[1]);
 
   let request = network.getSync(
-    `https://api.playhive.com/v0/game/all/${gameMode}`
+    `https://api.playhive.com/v0/game/all/${gameMode}`,
+    {}
   );
 
   if (request.statusCode === 200) {
