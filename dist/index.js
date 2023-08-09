@@ -1,5 +1,5 @@
 function help(args) {
-    script.log("§l§6get-all-time-lb\n§r§eSyntax: §fget-all-time-lb <GameMode> <NumberOfPositionsShown>");
+    script.log("§l§6get-all-time-lb\n§r§eSyntax: §fget-all-time-lb <GameMode> <NumberOfPositionsShown>\n");
     script.log("§l§6get-all-time-player-stats\n§r§eSyntax: §fget-all-time-player-stats <GameMode> <Player>");
 }
 
@@ -54,17 +54,17 @@ function getAllTimePlayerStats(args) {
     if (request.statusCode === 200) {
         const response = JSON.parse(util.bufferToString(request.body));
         script.log(`§l§6${player}`);
-        script.log(`§6Games played: §l§6${response.played}`);
-        script.log(`§6Wins: §l§6${response.victories}`);
-        script.log(`§6Winrate: §l§6${Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
-        script.log(`§6Lossrate: §l§6${100 -
+        script.log(`§eGames played: §l§f${response.played}`);
+        script.log(`§eWins: §l§f${response.victories}`);
+        script.log(`§eWinrate: §l§f${Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
+        script.log(`§eLossrate: §l§f${100 -
             Math.round(Math.floor((response.victories / response.played) * 1000) / 10)}%`);
         if (response.kills !== undefined) {
-            script.log(`§6Kills: §l§6${response.kills}`);
+            script.log(`§eKills: §l§f${response.kills}`);
         }
-        script.log(`§6Deaths: §l§6${response.deaths}`);
+        script.log(`§eDeaths: §l§f${response.deaths}`);
         if (response.kills !== undefined) {
-            script.log(`§6KDR: §l§6${kdrCalc(Number(response.kills), Number(response.deaths))}`);
+            script.log(`§eKDR: §l§f${kdrCalc(Number(response.kills), Number(response.deaths))}`);
         }
     }
     else if (request.statusCode === 404) {
