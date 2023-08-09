@@ -12,7 +12,7 @@ export default function gameModeToGameCode(gameMode: string): string {
     ["JustBuild", "build"],
     ["BlockParty", "party"],
     ["TheBridge", "bridge"],
-    ["Gravity", "gravity"],
+    ["Gravity", "grav"],
   ]);
 
   return hiveGamemodes.get(gameMode)!;
