@@ -42,7 +42,7 @@ function kdrCalc(kills, deaths) {
 }
 
 const network = require("network");
-function getPlayerAllTimeStats(args) {
+function getAllTimePlayerStats(args) {
     let gameMode = gameModeToGameCode(args[0]);
     let player = args[1];
     let request = network.getSync(`https://api.playhive.com/v0/game/all/${gameMode}/${player}`);
@@ -70,7 +70,7 @@ function getPlayerAllTimeStats(args) {
 let cmdPrefix = "*";
 let cmds = new Map([
     [getAllTimeLB, "get-all-time-lb"],
-    [getPlayerAllTimeStats, "get-all-time-player-stats"],
+    [getAllTimePlayerStats, "get-all-time-player-stats"],
 ]);
 
 // Credits: rosie for doing this idea before I ever could :(

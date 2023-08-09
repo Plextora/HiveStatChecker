@@ -1,8 +1,8 @@
-import getAllTimeLB from "./getAllTimeLB";
-import getPlayerAllTimeStats from "./getPlayerAllTimeStats";
+import getAllTimeLB from "./allTime/getAllTimeLB";
+import getAllTimePlayerStats from "./allTime/getAllTimePlayerStats";
 
 export let cmdPrefix = "*";
 export let cmds: Map<Function, string> = new Map<Function, string>([
   [getAllTimeLB, "get-all-time-lb"],
-  [getPlayerAllTimeStats, "get-all-time-player-stats"],
+  [getAllTimePlayerStats, "get-all-time-player-stats"],
 ]);

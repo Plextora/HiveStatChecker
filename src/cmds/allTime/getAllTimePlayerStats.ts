@@ -1,8 +1,8 @@
-import gameModeToGameCode from "../util/gameModeToGameCode";
-import { kdrCalc } from "../util/kdrCalc";
+import gameModeToGameCode from "../../util/gameModeToGameCode";
+import { kdrCalc } from "../../util/kdrCalc";
 const network = require("network");
 
-export default function getPlayerAllTimeStats(args: string[]) {
+export default function getAllTimePlayerStats(args: string[]) {
   let gameMode: string = gameModeToGameCode(args[0])!;
   let player: string = args[1];
 
