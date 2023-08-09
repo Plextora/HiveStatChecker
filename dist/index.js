@@ -17,7 +17,7 @@ function gameModeToGameCode(gameMode) {
         ["JustBuild", "build"],
         ["BlockParty", "party"],
         ["TheBridge", "bridge"],
-        ["Gravity", "gravity"],
+        ["Gravity", "grav"],
     ]);
     return hiveGamemodes.get(gameMode);
 }
@@ -29,6 +29,7 @@ function getAllTimeLB(args) {
     let request = network$1.getSync(`https://api.playhive.com/v0/game/all/${gameMode}`, {});
     if (request.statusCode === 200) {
         const response = JSON.parse(util.bufferToString(request.body));
+        script.log(`§l§6${args[0]} Leaderboard\n-----------------------`);
         for (const i in response) {
             if (numberOfPositions < response[i].human_index) {
                 break;

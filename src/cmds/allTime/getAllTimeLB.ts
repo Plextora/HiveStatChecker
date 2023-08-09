@@ -12,6 +12,7 @@ export default function getAllTimeLB(args: string[]) {
 
   if (request.statusCode === 200) {
     const response: any = JSON.parse(util.bufferToString(request.body));
+    script.log(`§l§6${args[0]} Leaderboard\n-----------------------`);
     for (const i in response) {
       if (numberOfPositions < response[i].human_index) {
         break;
