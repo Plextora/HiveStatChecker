@@ -68,9 +68,10 @@ function getPlayerAllTimeStats(args) {
 }
 
 let cmdPrefix = "*";
-let cmds = new Map();
-cmds.set(getAllTimeLB, "get-all-time-lb");
-cmds.set(getPlayerAllTimeStats, "get-all-time-player-stats");
+let cmds = new Map([
+    [getAllTimeLB, "get-all-time-lb"],
+    [getPlayerAllTimeStats, "get-all-time-player-stats"],
+]);
 
 // Credits: rosie for doing this idea before I ever could :(
 script.name = "Hive Stat Checker";
