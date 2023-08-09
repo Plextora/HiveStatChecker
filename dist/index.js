@@ -1,3 +1,8 @@
+function help(args) {
+    script.log("§l§6get-all-time-lb\n§r§eSyntax: §fget-all-time-lb <GameMode> <NumberOfPositionsShown>");
+    script.log("§l§6get-all-time-player-stats\n§r§eSyntax: §fget-all-time-player-stats <GameMode> <Player>");
+}
+
 function gameModeToGameCode(gameMode) {
     const hiveGamemodes = new Map([
         ["TreasureWars", "wars"],
@@ -21,7 +26,7 @@ const network$1 = require("network");
 function getAllTimeLB(args) {
     let gameMode = gameModeToGameCode(args[0]);
     let numberOfPositions = Number(args[1]);
-    let request = network$1.getSync(`https://api.playhive.com/v0/game/all/${gameMode}`);
+    let request = network$1.getSync(`https://api.playhive.com/v0/game/all/${gameMode}`, {});
     if (request.statusCode === 200) {
         const response = JSON.parse(util.bufferToString(request.body));
         for (const i in response) {
@@ -45,7 +50,7 @@ const network = require("network");
 function getAllTimePlayerStats(args) {
     let gameMode = gameModeToGameCode(args[0]);
     let player = args[1];
-    let request = network.getSync(`https://api.playhive.com/v0/game/all/${gameMode}/${player}`);
+    let request = network.getSync(`https://api.playhive.com/v0/game/all/${gameMode}/${player}`, {});
     if (request.statusCode === 200) {
         const response = JSON.parse(util.bufferToString(request.body));
         script.log(`§l§6${player}`);
@@ -69,6 +74,7 @@ function getAllTimePlayerStats(args) {
 
 let cmdPrefix = "*";
 let cmds = new Map([
+    [help, "help"],
     [getAllTimeLB, "get-all-time-lb"],
     [getAllTimePlayerStats, "get-all-time-player-stats"],
 ]);
