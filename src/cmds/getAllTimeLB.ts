@@ -10,7 +10,7 @@ export default function getAllTimeLB(args: string[]) {
   );
 
   if (request.statusCode === 200) {
-    const response: any = JSON.parse(request.body);
+    const response: any = JSON.parse(util.bufferToString(request.body));
     for (const i in response) {
       if (numberOfPositions < response[i].human_index) {
         break;

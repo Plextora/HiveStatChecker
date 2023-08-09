@@ -23,7 +23,7 @@ function getAllTimeLB(args) {
     let numberOfPositions = Number(args[1]);
     let request = network$1.getSync(`https://api.playhive.com/v0/game/all/${gameMode}`);
     if (request.statusCode === 200) {
-        const response = JSON.parse(request.body);
+        const response = JSON.parse(util.bufferToString(request.body));
         for (const i in response) {
             if (numberOfPositions < response[i].human_index) {
                 break;
@@ -47,7 +47,7 @@ function getPlayerAllTimeStats(args) {
     let player = args[1];
     let request = network.getSync(`https://api.playhive.com/v0/game/all/${gameMode}/${player}`);
     if (request.statusCode === 200) {
-        const response = JSON.parse(request.body);
+        const response = JSON.parse(util.bufferToString(request.body));
         script.log(`§l§6${player}`);
         script.log(`§6Games played: §l§6${response.played}`);
         script.log(`§6Wins: §l§6${response.victories}`);

@@ -11,7 +11,7 @@ export default function getPlayerAllTimeStats(args: string[]) {
   );
 
   if (request.statusCode === 200) {
-    const response: any = JSON.parse(request.body);
+    const response: any = JSON.parse(util.bufferToString(request.body));
     script.log(`§l§6${player}`);
     script.log(`§6Games played: §l§6${response.played}`);
     script.log(`§6Wins: §l§6${response.victories}`);
