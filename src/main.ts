@@ -2,8 +2,6 @@
 
 import * as cmdHandler from "./cmds/cmdHandler";
 
-clientMessage("Script HiveStatChecker has been loaded!");
-
 let hiveStatCheckerModule: Module = new Module(
   "HiveStatChecker",
   "Hive Stat Checker",
