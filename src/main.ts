@@ -2,6 +2,8 @@
 
 import * as cmdHandler from "./cmds/cmdHandler";
 
+client.showNotification("Plugin has been loaded!");
+
 let hiveStatCheckerModule: Module = new Module(
   "HiveStatChecker",
   "Hive Stat Checker",
