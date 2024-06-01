@@ -6,39 +6,53 @@ export default function getAllTimePlayerStats(args: string[]) {
   let gameMode: string = gameModeToGameCode(args[0])!;
   let player: string = args[1];
 
-  let request = network.getSync(
-    `https://api.playhive.com/v0/game/all/${gameMode}/${player}`,
-    {}
+  let request = network.get(
+    `https://api.playhive.com/v0/game/all/${gameMode}/${player}`
   );
 
   if (request.statusCode === 200) {
     const response: any = JSON.parse(util.bufferToString(request.body));
-    script.log(`§l§6${player}`);
-    script.log(`§eGames played: §l§f${response.played}`);
-    script.log(`§eWins: §l§f${response.victories}`);
-    script.log(
-      `§eWinrate: §l§f${Math.round(
-        Math.floor((response.victories / response.played) * 1000) / 10
-      )}%`
+    clientMessage(decodeURI(`\u00A7l\u00A76${player}`));
+    clientMessage(
+      decodeURI(`\u00A7eGames played: \u00A7l\u00A7f${response.played}`)
     );
-    script.log(
-      `§eLossrate: §l§f${
-        100 -
-        Math.round(
+    clientMessage(
+      decodeURI(`\u00A7eWins: \u00A7l\u00A7f${response.victories}`)
+    );
+    clientMessage(
+      decodeURI(
+        `\u00A7eWinrate: \u00A7l\u00A7f${Math.round(
           Math.floor((response.victories / response.played) * 1000) / 10
-        )
-      }%`
+        )}%25`
+      )
+    );
+    clientMessage(
+      decodeURI(
+        `\u00A7eLossrate: \u00A7l\u00A7f${
+          100 -
+          Math.round(
+            Math.floor((response.victories / response.played) * 1000) / 10
+          )
+        }%25`
+      )
     );
     if (response.kills !== undefined) {
-      script.log(`§eKills: §l§f${response.kills}`);
+      clientMessage(decodeURI(`\u00A7eKills: \u00A7l\u00A7f${response.kills}`));
     }
-    script.log(`§eDeaths: §l§f${response.deaths}`);
+    clientMessage(decodeURI(`\u00A7eDeaths: \u00A7l\u00A7f${response.deaths}`));
     if (response.kills !== undefined) {
-      script.log(
-        `§eKDR: §l§f${kdrCalc(Number(response.kills), Number(response.deaths))}`
+      clientMessage(
+        decodeURI(
+          `\u00A7eKDR: \u00A7l\u00A7f${kdrCalc(
+            Number(response.kills),
+            Number(response.deaths)
+          )}`
+        )
       );
     }
   } else if (request.statusCode === 404) {
-    script.log("§l§cFailed to obtain player's statistics.");
+    clientMessage(
+      decodeURI("\u00A7l\u00A7cFailed to obtain player's statistics.")
+    );
   }
 }
