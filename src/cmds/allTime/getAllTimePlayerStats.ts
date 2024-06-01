@@ -1,5 +1,5 @@
 import gameModeToGameCode from "../../util/gameModeToGameCode";
-import { kdrCalc, winLossCalc } from "../../util/kdrCalc";
+import { kdrCalc, winLossCalc } from "../../util/calc";
 const network = require("network");
 
 export default function getAllTimePlayerStats(args: string[]) {
