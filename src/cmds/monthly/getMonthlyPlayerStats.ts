@@ -3,7 +3,7 @@ import { kdrCalc, winLossCalc } from "../../util/calc";
 import { cmdPrefix } from "../cmdHandler";
 const network = require("network");
 
-export default function getAllTimePlayerStats(args: string[]) {
+export default function getMonthlyPlayerStats(args: string[]) {
   let gameMode: string = args[0];
   let gameCode: string = gameModeToGameCode(gameMode)!;
   // maybe i shouldn't of used an args system because xbox gamertags can have spaces
@@ -11,14 +11,14 @@ export default function getAllTimePlayerStats(args: string[]) {
   let player: string = args.slice(1).join(" ");
 
   let request = network.get(
-    `https://api.playhive.com/v0/game/all/${gameCode}/${player}`
+    `https://api.playhive.com/v0/game/monthly/player/${gameCode}/${player}`
   );
 
   if (request.statusCode === 200) {
     const response: any = JSON.parse(util.bufferToString(request.body));
     clientMessage(
       decodeURI(
-        `\u00A7l\u00A76${player}'s All Time ${gameMode} Stats\n-----------------------`
+        `\u00A7l\u00A76${player}'s Monthly ${gameMode} Stats\n-----------------------`
       )
     );
     if (response.victories !== undefined && response.played !== undefined) {

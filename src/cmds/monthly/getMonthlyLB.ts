@@ -2,18 +2,20 @@ import gameModeToGameCode from "../../util/gameModeToGameCode";
 import { cmdPrefix } from "../cmdHandler";
 const network = require("network");
 
-export default function getAllTimeLB(args: string[]) {
+export default function getMonthlyLB(args: string[]) {
   let gameMode: string = args[0];
   let gameCode: string = gameModeToGameCode(gameMode)!;
   let numberOfPositions: number = Number(args[1]);
 
-  let request = network.get(`https://api.playhive.com/v0/game/all/${gameCode}`);
+  let request = network.get(
+    `https://api.playhive.com/v0/game/monthly/${gameCode}`
+  );
 
   if (request.statusCode === 200) {
     const response: any = JSON.parse(util.bufferToString(request.body));
     clientMessage(
       decodeURI(
-        `\u00A7l\u00A76${gameMode} All Time Leaderboard\n-----------------------`
+        `\u00A7l\u00A76${gameMode} Monthly Leaderboard\n-----------------------`
       )
     );
     for (const i in response) {
@@ -29,7 +31,7 @@ export default function getAllTimeLB(args: string[]) {
   } else if (request.statusCode === 404) {
     clientMessage(
       decodeURI(
-        `\u00A7l\u00A7cFailed to obtain leaderboard rankings.\nExample usage: ${cmdPrefix}get-all-time-lb SurvivalGames 5`
+        `\u00A7l\u00A7cFailed to obtain leaderboard rankings.\nExample usage: ${cmdPrefix}get-monthly-lb Deathrun 5`
       )
     );
   }
