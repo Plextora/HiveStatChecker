@@ -4,7 +4,9 @@ const network = require("network");
 
 export default function getAllTimePlayerStats(args: string[]) {
   let gameMode: string = gameModeToGameCode(args[0])!;
-  let player: string = args[1];
+  // maybe i shouldn't of used an args system because xbox gamertags can have spaces
+  // now i have to do this weird ass array/string manipulation to get an actual player string
+  let player: string = args.slice(1).join(" ");
 
   let request = network.get(
     `https://api.playhive.com/v0/game/all/${gameMode}/${player}`
@@ -45,7 +47,9 @@ export default function getAllTimePlayerStats(args: string[]) {
     }
   } else if (request.statusCode === 404) {
     clientMessage(
-      decodeURI("\u00A7l\u00A7cFailed to obtain player's statistics.")
+      decodeURI(
+        "\u00A7l\u00A7cFailed to obtain player's statistics.\nExample usage: get-all-time-player-stats <GameMode> <Player>"
+      )
     );
   }
 }
