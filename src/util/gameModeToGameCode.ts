@@ -1,6 +1,7 @@
 export default function gameModeToGameCode(gameMode: string): string {
   const hiveGamemodes: Map<string, string> = new Map<string, string>([
     ["TreasureWars", "wars"],
+    ["Bedwars", "bed"],
     ["Deathrun", "dr"],
     ["HideAndSeek", "hide"],
     ["SurvivalGames", "sg"],
