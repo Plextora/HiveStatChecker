@@ -1,5 +1,6 @@
 import gameModeToGameCode from "../../util/gameModeToGameCode";
 import { kdrCalc, winLossCalc } from "../../util/calc";
+import { cmdPrefix } from "../cmdHandler";
 const network = require("network");
 
 export default function getAllTimePlayerStats(args: string[]) {
@@ -48,7 +49,7 @@ export default function getAllTimePlayerStats(args: string[]) {
   } else if (request.statusCode === 404) {
     clientMessage(
       decodeURI(
-        "\u00A7l\u00A7cFailed to obtain player's statistics.\nExample usage: get-all-time-player-stats <GameMode> <Player>"
+        `\u00A7l\u00A7cFailed to obtain player's statistics.\nExample usage: ${cmdPrefix}get-all-time-player-stats <GameMode> <Player>`
       )
     );
   }

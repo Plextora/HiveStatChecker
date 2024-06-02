@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && copy .\\src\\plugin.json .\\out\\plugin.json"
+    "build": "tsc && copy .\\src\\plugin.json .\\out\\plugin.json && copy .\\src\\commandPrefix.txt .\\out\\commandPrefix.txt"
   },
   "license": "MIT",
   "devDependencies": {
