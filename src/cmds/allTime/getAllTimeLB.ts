@@ -1,5 +1,6 @@
 import gameModeToGameCode from "../../util/gameModeToGameCode";
 import { cmdPrefix } from "../cmdHandler";
+import { LeaderboardApiResponse, HttpResponse } from "../../types";
 const network = require("network");
 
 export default function getAllTimeLB(args: string[]) {
@@ -7,10 +8,14 @@ export default function getAllTimeLB(args: string[]) {
   let gameCode: string = gameModeToGameCode(gameMode)!;
   let numberOfPositions: number = Number(args[1]);
 
-  let request = network.get(`https://api.playhive.com/v0/game/all/${gameCode}`);
+  let request: HttpResponse = network.get(
+    `https://api.playhive.com/v0/game/all/${gameCode}`
+  );
 
   if (request.statusCode === 200) {
-    const response: any = JSON.parse(util.bufferToString(request.body));
+    const response: LeaderboardApiResponse[] = JSON.parse(
+      util.bufferToString(request.body)
+    );
     clientMessage(
       decodeURI(
         `\u00A7l\u00A76${gameMode} All Time Leaderboard\n-----------------------`

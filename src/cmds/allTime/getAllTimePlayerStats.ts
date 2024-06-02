@@ -1,6 +1,7 @@
 import gameModeToGameCode from "../../util/gameModeToGameCode";
 import { kdrCalc, winLossCalc } from "../../util/calc";
 import { cmdPrefix } from "../cmdHandler";
+import { PlayerApiResponse, HttpResponse } from "../../types";
 const network = require("network");
 
 export default function getAllTimePlayerStats(args: string[]) {
@@ -10,12 +11,14 @@ export default function getAllTimePlayerStats(args: string[]) {
   // now i have to do this weird ass array/string manipulation to get an actual player string
   let player: string = args.slice(1).join(" ");
 
-  let request = network.get(
+  let request: HttpResponse = network.get(
     `https://api.playhive.com/v0/game/all/${gameCode}/${player}`
   );
 
   if (request.statusCode === 200) {
-    const response: any = JSON.parse(util.bufferToString(request.body));
+    const response: PlayerApiResponse = JSON.parse(
+      util.bufferToString(request.body)
+    );
     clientMessage(
       decodeURI(
         `\u00A7l\u00A76${player}'s All Time ${gameMode} Stats\n-----------------------`
@@ -31,8 +34,8 @@ export default function getAllTimePlayerStats(args: string[]) {
       clientMessage(
         decodeURI(
           `\u00A7eW/L: \u00A7l\u00A7f${winLossCalc(
-            Number(response.victories),
-            Number(response.played)
+            response.victories,
+            response.played
           )}`
         )
       );
