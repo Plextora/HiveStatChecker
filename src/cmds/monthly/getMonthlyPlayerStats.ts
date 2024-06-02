@@ -1,5 +1,5 @@
 import gameModeToGameCode from "../../util/gameModeToGameCode";
-import { kdrCalc, winLossCalc } from "../../util/calc";
+import { kdrCalc, winrateCalc, lossrateCalc } from "../../util/calc";
 import { cmdPrefix } from "../cmdHandler";
 import { PlayerApiResponse, HttpResponse } from "../../types";
 const network = require("network");
@@ -33,10 +33,18 @@ export default function getMonthlyPlayerStats(args: string[]) {
       );
       clientMessage(
         decodeURI(
-          `\u00A7eW/L: \u00A7l\u00A7f${winLossCalc(
+          `\u00A7eWinrate: \u00A7l\u00A7f${winrateCalc(
             response.victories,
             response.played
-          )}`
+          )}%25`
+        )
+      );
+      clientMessage(
+        decodeURI(
+          `\u00A7eLossrate: \u00A7l\u00A7f${lossrateCalc(
+            response.victories,
+            response.played
+          )}%25`
         )
       );
     }

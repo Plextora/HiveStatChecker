@@ -10,7 +10,10 @@ export function kdrCalcMulti(kills: number, kills2: number, deaths: number) {
   return Math.round((KDR + Number.EPSILON) * 100) / 100;
 }
 
-export function winLossCalc(wins: number, gamesPlayed: number) {
-  let winLoss = wins / gamesPlayed;
-  return Math.round((winLoss + Number.EPSILON) * 100) / 100;
+export function winrateCalc(wins: number, gamesPlayed: number) {
+  return Math.round(Math.floor((wins / gamesPlayed) * 1000) / 10);
+}
+
+export function lossrateCalc(wins: number, gamesPlayed: number) {
+  return 100 - Math.round(Math.floor((wins / gamesPlayed) * 1000) / 10);
 }
